@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="漫画，创意，动漫" />
+    <meta name="description" content="创意交流平台" />
+    <title>创意平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF4B67',
+                        secondary: '#0080DB',
+                        neutral: {
+                            100: '#F8F9FA',
+                            200: '#E9ECEF',
+                            300: '#DEE2E6',
+                            400: '#CED4DA',
+                            500: '#ADB5BD',
+                            600: '#6C757D',
+                            700: '#495057',
+                            800: '#343A40',
+                            900: '#212529',
+                        }
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .card-hover {
+                @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+            }
+            .nav-link {
+                @apply relative px-4 py-2 text-white hover:text-primary transition-colors duration-300;
+            }
+            .nav-link::after {
+                @apply content-[''] absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+            }
+            .nav-link:hover::after {
+                @apply w-full;
+            }
+            .header-scrolled {
+                @apply bg-white/98 shadow-md transition-all duration-300;
+            }
+            .carousel-item {
+                @apply transition-opacity duration-1000;
+            }
+        }
+    </style>
+</head>
+<body class="font-inter bg-neutral-100 text-neutral-800">
+    <header class="sticky top-0 z-50 bg-white shadow-sm" id="main-header">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center space-x-2">
+                    <span class="text-primary text-3xl"><i class="fa fa-paint-brush"></i></span>
+                    <span class="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">河大创意平台</span>
+                </a>
+                
+                
+                <nav class="hidden md:flex items-center space-x-1">
+                    <a href="#" class="nav-link font-medium">首页</a>
+                    <a href="#" class="nav-link font-medium">艺术漫画</a>
+                    <a href="#" class="nav-link font-medium">短片创作</a>
+                    <a href="#" class="nav-link font-medium">设计作品</a>
+                    <a href="#" class="nav-link font-medium">创意工坊</a>
+                    <a href="#" class="nav-link font-medium">社区活动</a>
+                </nav>
+                
+                
+                <div class="flex items-center space-x-4">
+                    <button class="hidden md:flex items-center text-neutral-600 hover:text-primary transition-colors">
+                        <i class="fa fa-bell-o mr-1"></i>
+                        <span class="text-xs bg-primary text-white rounded-full w-4 h-4 flex items-center justify-center">3</span>
+                    </button>
+                    <div class="relative group">
+                        <button class="flex items-center text-neutral-600 hover:text-primary transition-colors">
+                            <i class="fa fa-user-o mr-1"></i>
+                            <span class="hidden md:inline">2410250078-阮家祥-软件工程</span>
+                            <i class="fa fa-caret-down ml-1"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                            <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100">个人主页</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100">我的收藏</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100">创作管理</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100">设置</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-neutral-100">退出登录</a>
+                        </div>
+                    </div>
+                    <button class="md:hidden text-neutral-600 hover:text-primary transition-colors" id="mobile-menu-button">
+                        <i class="fa fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+       
+        <div class="md:hidden hidden bg-white shadow-md" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-neutral-100">首页</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-neutral-700 hover:bg-neutral-100">艺术摄影</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-neutral-700 hover:bg-neutral-100">短片创作</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-neutral-700 hover:bg-neutral-100">设计作品</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-neutral-700 hover:bg-neutral-100">创意工坊</a>
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-neutral-700 hover:bg-neutral-100">社区活动</a>
+            </div>
+        </div>
+    </header>
+
+    
+    <div class="bg-gradient-to-r from-secondary to-primary text-white py-2">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center">
+                <span class="flex-shrink-0 font-medium mr-4"><i class="fa fa-bullhorn mr-1"></i> 平台公告</span>
+                <div class="w-full overflow-hidden">
+                    <div class="animate-marquee whitespace-nowrap">
+                        <span class="inline-block mr-8">【创作大赛】2025年河大设计</span>
+                        <span class="inline-block mr-8">【活动预告】2077年发布GTA7</span>
+                        <span class="inline-block mr-8">【新功能上线】交流功能上线</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  
+    <main class="container mx-auto px-4 py-8">
+      
+        <section class="mb-12 relative overflow-hidden rounded-xl shadow-lg">
+            <div class="relative h-[500px] md:h-[600px]" id="carousel">
+                <div class="carousel-item absolute inset-0 opacity-100">
+                    <img src="img/y.jpg" alt="作品" class="w-full h-full object-cover" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                        <div class="p-6 md:p-10 text-white">
+                            <h2 class="text-3xl md:text-5xl font-bold mb-2 text-shadow">交流创意</h2>
+                            <p class="text-lg md:text-xl max-w-2xl mb-6">发现别样的经常</p>
+                            <button class="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 shadow-lg">
+                                浏览作品 <i class="fa fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item absolute inset-0 opacity-0">
+                    <img src="img/34.jpg" alt="设计创意展示" class="w-full h-full object-cover" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                        <div class="p-6 md:p-10 text-white">
+                            <h2 class="text-3xl md:text-5xl font-bold mb-2 text-shadow">加入创意社区</h2>
+                            <p class="text-lg md:text-xl max-w-2xl mb-6">与志同道合的创作者交流</p>
+                            <button class="bg-secondary hover:bg-secondary/90 text-white px-6 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 shadow-lg">
+                                立即注册 <i class="fa fa-user-plus ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item absolute inset-0 opacity-0">
+                    <img src="img/9.png" alt="技巧分享" class="w-full h-full object-cover" loading="lazy">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
+                        <div class="p-6 md:p-10 text-white">
+                            <h2 class="text-3xl md:text-5xl font-bold mb-2 text-shadow">提升创作技能</h2>
+                            <p class="text-lg md:text-xl max-w-2xl mb-6">成为大师</p>
+                            <button class="bg-neutral-800 hover:bg-neutral-700 text-white px-6 py-3 rounded-full font-medium transition-all duration-300 transform hover:scale-105 shadow-lg">
+                                查看课程 <i class="fa fa-book ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+               
+                <button class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300" id="prev-slide" aria-label="上一张">
+                    <i class="fa fa-chevron-left"></i>
+                </button>
+                <button class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300" id="next-slide" aria-label="下一张">
+                    <i class="fa fa-chevron-right"></i>
+                </button>
+                
+              
+                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2">
+                    <button class="w-3 h-3 rounded-full bg-white opacity-100 carousel-indicator" data-index="0"></button>
+                    <button class="w-3 h-3 rounded-full bg-white opacity-50 carousel-indicator" data-index="1"></button>
+                    <button class="w-3 h-3 rounded-full bg-white opacity-50 carousel-indicator" data-index="2"></button>
+                </div>
+            </div>
+        </section>
+
+    
+        <section class="mb-16">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold text-neutral-800">分类</h2>
+                <a href="#" class="text-primary hover:text-primary/80 font-medium flex items-center">
+                    查看全部 <i class="fa fa-angle-right ml-1"></i>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <a href="#" class="category-card bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="h-40 overflow-hidden">
+                        <img src="img/first.png" alt="可爱" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" loading="lazy">
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-lg mb-1">可爱ing</h3>
+                        <p class="text-neutral-600 text-sm">1,248 作品</p>
+                    </div>
+                </a>
+                
+                <a href="#" class="category-card bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="h-40 overflow-hidden">
+                        <img src="img/c.png" alt="黑白风" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" loading="lazy">
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-lg mb-1">黑白风格</h3>
+                        <p class="text-neutral-600 text-sm">965 作品</p>
+                    </div>
+                </a>
+                
+                <a href="#" class="category-card bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="h-40 overflow-hidden">
+                        <img src="img/d.png" alt="日漫" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" loading="lazy">
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-lg mb-1">日漫</h3>
+                        <p class="text-neutral-600 text-sm">1,573 作品</p>
+                    </div>
+                </a>
+                
+                <a href="#" class="category-card bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="h-40 overflow-hidden">
+                        <img src="img/a.png" alt="3D" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" loading="lazy">
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-lg mb-1">3D区</h3>
+                        <p class="text-neutral-600 text-sm">842 作品</p>
+                    </div>
+                </a>
+                
+                <a href="#" class="category-card bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="h-40 overflow-hidden">
+                        <img src="img/h.png" alt="国漫" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" loading="lazy">
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-lg mb-1">国漫</h3>
+                        <p class="text-neutral-600 text-sm">1,129 作品</p>
+                    </div>
+                </a>
+                
+                <a href="#" class="category-card bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="h-40 overflow-hidden">
+                        <img src="img/j.png" alt="混杂" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110" loading="lazy">
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="font-bold text-lg mb-1">混杂</h3>
+                        <p class="text-neutral-600 text-sm">753 作品</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+      
+        <section class="mb-16">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold text-neutral-800">精选作品</h2>
+                <div class="flex space-x-2">
+                    <button class="px-4 py-2 bg-primary text-white rounded-lg shadow-sm active-category">全部</button>
+                    <button class="px-4 py-2 bg-white text-neutral-700 hover:bg-neutral-100 rounded-lg shadow-sm transition-colors">最新</button>
+                    <button class="px-4 py-2 bg-white text-neutral-700 hover:bg-neutral-100 rounded-lg shadow-sm transition-colors">热门</button>
+                    <button class="px-4 py-2 bg-white text-neutral-700 hover:bg-neutral-100 rounded-lg shadow-sm transition-colors">推荐</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 作品卡片1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="relative h-60 overflow-hidden">
+                        <img src="img/l.jpg" alt="狼与香辛料" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy">
+                        <div class="absolute top-3 right-3">
+                            <button class="bg-white/80 hover:bg-white text-neutral-700 w-8 h-8 rounded-full flex items-center justify-center transition-colors">
+                                <i class="fa fa-heart-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="font-bold text-lg mb-1">狼与香辛料</h3>
+                                <p class="text-neutral-600 text-sm">赫萝</p>
+                            </div>
+                            <div class="flex items-center text-neutral-500 text-sm">
+                                <i class="fa fa-eye mr-1"></i> 2.4k
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <img src="img/j.png" alt="头像" class="w-10 h-10 rounded-full object-cover" loading="lazy">
+                            <div class="ml-3">
+                                <p class="font-medium">刘可</p>
+                                <p class="text-neutral-500 text-xs">日漫</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 作品卡片2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="relative h-60 overflow-hidden">
+                        <img src="img/33.png" alt="国漫人物" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy">
+                        <div class="absolute top-3 right-3">
+                            <button class="bg-white/80 hover:bg-white text-neutral-700 w-8 h-8 rounded-full flex items-center justify-center transition-colors">
+                                <i class="fa fa-heart-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="font-bold text-lg mb-1">左若童</h3>
+                                <p class="text-neutral-600 text-sm">国漫人物</p>
+                            </div>
+                            <div class="flex items-center text-neutral-500 text-sm">
+                                <i class="fa fa-eye mr-1"></i> 3.7k
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <img src="img/8.png" alt="作者头像" class="w-10 h-10 rounded-full object-cover" loading="lazy">
+                            <div class="ml-3">
+                                <p class="font-medium">阮家祥</p>
+                                <p class="text-neutral-500 text-xs">国产漫画</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 作品卡片3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="relative h-60 overflow-hidden">
+                        <img src="img/q.jpg" alt="日漫" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy">
+                        <div class="absolute top-3 right-3">
+                            <button class="bg-white/80 hover:bg-white text-neutral-700 w-8 h-8 rounded-full flex items-center justify-center transition-colors">
+                                <i class="fa fa-heart-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="font-bold text-lg mb-1">日漫</h3>
+                                <p class="text-neutral-600 text-sm">夏目友人帐</p>
+                            </div>
+                            <div class="flex items-center text-neutral-500 text-sm">
+                                <i class="fa fa-eye mr-1"></i> 5.1k
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <img src="img/e.jpg" alt="作者头像" class="w-10 h-10 rounded-full object-cover" loading="lazy">
+                            <div class="ml-3">
+                                <p class="font-medium">夏目</p>
+                                <p class="text-neutral-500 text-xs">插画师</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 作品卡片4 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="relative h-60 overflow-hidden">
+                        <img src="img/v.png" alt="zhishi" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy">
+                        <div class="absolute top-3 right-3">
+                            <button class="bg-white/80 hover:bg-white text-neutral-700 w-8 h-8 rounded-full flex items-center justify-center transition-colors">
+                                <i class="fa fa-heart-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="font-bold text-lg mb-1">知世郎</h3>
+                                <p class="text-neutral-600 text-sm">镖人</p>
+                            </div>
+                            <div class="flex items-center text-neutral-500 text-sm">
+                                <i class="fa fa-eye mr-1"></i> 4.2k
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <img src="img/v.png" alt="作者头像" class="w-10 h-10 rounded-full object-cover" loading="lazy">
+                            <div class="ml-3">
+                                <p class="font-medium">张伟</p>
+                                <p class="text-neutral-500 text-xs">3D艺术家</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 作品卡片5 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="relative h-60 overflow-hidden">
+                        <img src="img/9.png" alt="fll" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy">
+                        <div class="absolute top-3 right-3">
+                            <button class="bg-white/80 hover:bg-white text-neutral-700 w-8 h-8 rounded-full flex items-center justify-center transition-colors">
+                                <i class="fa fa-heart-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="font-bold text-lg mb-1">动漫</h3>
+                                <p class="text-neutral-600 text-sm">芙莉莲</p>
+                            </div>
+                            <div class="flex items-center text-neutral-500 text-sm">
+                                <i class="fa fa-eye mr-1"></i> 2.8k
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <img src="img/7.png" alt="作者头像" class="w-10 h-10 rounded-full object-cover" loading="lazy">
+                            <div class="ml-3">
+                                <p class="font-medium">顾雪</p>
+                                <p class="text-neutral-500 text-xs">日漫</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 作品卡片6 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="relative h-60 overflow-hidden">
+                        <img src="img/b.png" alt="riben" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy">
+                        <div class="absolute top-3 right-3">
+                            <button class="bg-white/80 hover:bg-white text-neutral-700 w-8 h-8 rounded-full flex items-center justify-center transition-colors">
+                                <i class="fa fa-heart-o"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="font-bold text-lg mb-1">日漫</h3>
+                                <p class="text-neutral-600 text-sm">日漫</p>
+                            </div>
+                            <div class="flex items-center text-neutral-500 text-sm">
+                                <i class="fa fa-eye mr-1"></i> 3.5k
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <img src="img/d.png" alt="作者头像" class="w-10 h-10 rounded-full object-cover" loading="lazy">
+                            <div class="ml-3">
+                                <p class="font-medium">李田</p>
+                                <p class="text-neutral-500 text-xs">李田大师</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-10 text-center">
+                <button class="bg-white hover:bg-neutral-50 text-primary border border-primary px-8 py-3 rounded-full font-medium transition-all duration-300 shadow-sm hover:shadow">
+                    加载更多作品 <i class="fa fa-refresh ml-2"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- 热门创作者 -->
+        <section class="mb-16">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold text-neutral-800">大师</h2>
+                <a href="#" class="text-primary hover:text-primary/80 font-medium flex items-center">
+                    查看全部 <i class="fa fa-angle-right ml-1"></i>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <!-- 创作者1 -->
+                <div class="bg-white rounded-xl shadow-md p-5 text-center card-hover">
+                    <div class="relative inline-block mb-4">
+                        <img src="img/8.png" alt="创作者头像" class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-md" loading="lazy">
+                        <div class="absolute -top-1 -right-1 bg-primary text-white text-xs w-6 h-6 rounded-full flex items-center justify-center">
+                            <i class="fa fa-crown"></i>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">阮文</h3>
+                    <p class="text-neutral-600 text-sm mb-3">国漫</p>
+                    <div class="flex justify-center space-x-1 mb-4">
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                    </div>
+                    <button class="w-full bg-primary/10 hover:bg-primary/20 text-primary py-2 rounded-lg transition-colors">
+                        关注
+                    </button>
+                </div>
+                
+                <!-- 创作者2 -->
+                <div class="bg-white rounded-xl shadow-md p-5 text-center card-hover">
+                    <div class="relative inline-block mb-4">
+                        <img src="img/l.jpg" alt="创作者头像" class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-md" loading="lazy">
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">刘可</h3>
+                    <p class="text-neutral-600 text-sm mb-3">设计师</p>
+                    <div class="flex justify-center space-x-1 mb-4">
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star-half-o"></i></span>
+                    </div>
+                    <button class="w-full bg-primary/10 hover:bg-primary/20 text-primary py-2 rounded-lg transition-colors">
+                        关注
+                    </button>
+                </div>
+                
+                <!-- 创作者3 -->
+                <div class="bg-white rounded-xl shadow-md p-5 text-center card-hover">
+                    <div class="relative inline-block mb-4">
+                        <img src="img/d.png" alt="创作者头像" class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-md" loading="lazy">
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">顾雪</h3>
+                    <p class="text-neutral-600 text-sm mb-3">插画师</p>
+                    <div class="flex justify-center space-x-1 mb-4">
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star-o"></i></span>
+                    </div>
+                    <button class="w-full bg-primary/10 hover:bg-primary/20 text-primary py-2 rounded-lg transition-colors">
+                        关注
+                    </button>
+                </div>
+                
+                <!-- 创作者4 -->
+                <div class="bg-white rounded-xl shadow-md p-5 text-center card-hover">
+                    <div class="relative inline-block mb-4">
+                        <img src="img/2.png" alt="创作者头像" class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-md" loading="lazy">
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">李田</h3>
+                    <p class="text-neutral-600 text-sm mb-3">3D艺术家</p>
+                    <div class="flex justify-center space-x-1 mb-4">
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                    </div>
+                    <button class="w-full bg-primary/10 hover:bg-primary/20 text-primary py-2 rounded-lg transition-colors">
+                        关注
+                    </button>
+                </div>
+                
+                <!-- 创作者5 -->
+                <div class="bg-white rounded-xl shadow-md p-5 text-center card-hover">
+                    <div class="relative inline-block mb-4">
+                        <img src="img/j.png" alt="创作者头像" class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-md" loading="lazy">
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">林雨</h3>
+                    <p class="text-neutral-600 text-sm mb-3">设计师</p>
+                    <div class="flex justify-center space-x-1 mb-4">
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star-half-o"></i></span>
+                    </div>
+                    <button class="w-full bg-primary/10 hover:bg-primary/20 text-primary py-2 rounded-lg transition-colors">
+                        关注
+                    </button>
+                </div>
+                
+                <!-- 创作者6 -->
+                <div class="bg-white rounded-xl shadow-md p-5 text-center card-hover">
+                    <div class="relative inline-block mb-4">
+                        <img src="img/6.jpg" alt="创作者头像" class="w-20 h-20 rounded-full object-cover border-4 border-white shadow-md" loading="lazy">
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">刘俊锋</h3>
+                    <p class="text-neutral-600 text-sm mb-3">路遥</p>
+                    <div class="flex justify-center space-x-1 mb-4">
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star"></i></span>
+                        <span class="text-yellow-400"><i class="fa fa-star-o"></i></span>
+                    </div>
+                    <button class="w-full bg-primary/10 hover:bg-primary/20 text-primary py-2 rounded-lg transition-colors">
+                        关注
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 社区活动 -->
+        <section class="mb-16">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-3xl font-bold text-neutral-800">社区活动</h2>
+                <a href="#" class="text-primary hover:text-primary/80 font-medium flex items-center">
+                    查看全部 <i class="fa fa-angle-right ml-1"></i>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 活动1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="img/34.jpg" alt="比赛" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy">
+                        <div class="absolute top-4 left-4 bg-primary text-white text-sm font-bold px-3 py-1 rounded-full">
+                            进行中
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">创意大赛</h3>
+                        <p class="text-neutral-600 mb-4">展现独特视角</p>
+                        <div class="flex items-center text-neutral-500 text-sm mb-4">
+                            <span class="flex items-center mr-4"><i class="fa fa-calendar-o mr-1"></i> 5月10日-6月30日</span>
+                            <span class="flex items-center"><i class="fa fa-users mr-1"></i> 1,245人参与</span>
+                        </div>
+                        <button class="w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-lg transition-colors">
+                            立即参与
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 活动2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="img/2.png" alt="工作坊" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy">
+                        <div class="absolute top-4 left-4 bg-secondary text-white text-sm font-bold px-3 py-1 rounded-full">
+                            即将开始
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">河大交流会</h3>
+                        <p class="text-neutral-600 mb-4">掌握最新思想</p>
+                        <div class="flex items-center text-neutral-500 text-sm mb-4">
+                            <span class="flex items-center mr-4"><i class="fa fa-calendar-o mr-1"></i> 6月15日</span>
+                            <span class="flex items-center"><i class="fa fa-map-marker mr-1"></i> 河南大学 ·综合楼</span>
+                        </div>
+                        <button class="w-full bg-secondary hover:bg-secondary/90 text-white py-3 rounded-lg transition-colors">
+                            预约席位
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 活动3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden card-hover">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="img/c.png" alt="线上讲座" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy">
+                        <div class="absolute top-4 left-4 bg-secondary text-white text-sm font-bold px-3 py-1 rounded-full">
+                            即将开始
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">艺术创作分享会</h3>
+                        <p class="text-neutral-600 mb-4">分享创作经验与技巧，探讨趋势</p>
+                        <div class="flex items-center text-neutral-500 text-sm mb-4">
+                            <span class="flex items-center mr-4"><i class="fa fa-calendar-o mr-1"></i> 6月20日</span>
+                            <span class="flex items-center"><i class="fa fa-laptop mr-1"></i> 线上直播</span>
+                        </div>
+                        <button class="w-full bg-secondary hover:bg-secondary/90 text-white py-3 rounded-lg transition-colors">
+                            免费报名
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 加入社区 -->
+        <section class="bg-gradient-to-r from-primary to-secondary rounded-2xl shadow-xl p-8 md:p-12 mb-16 text-white">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-8 md:mb-0 md:mr-8">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">加入我们的创意社区</h2>
+                    <p class="text-lg md:text-xl mb-6 max-w-2xl">与创作者一起分享作品、交流经验、获取灵感，开启你的创作之旅。</p>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                                <i class="fa fa-users text-white"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-xl">500k+</p>
+                                <p class="text-sm text-white/80">创作者</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                                <i class="fa fa-image text-white"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-xl">2M+</p>
+                                <p class="text-sm text-white/80">创意作品</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                                <i class="fa fa-comments text-white"></i>
+                            </div>
+                            <div>
+                                <p class="font-bold text-xl">10M+</p>
+                                <p class="text-sm text-white/80">社区讨论</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-auto">
+                    <form class="bg-white p-6 rounded-xl shadow-lg">
+                        <h3 class="text-xl font-bold text-neutral-800 mb-4">立即注册</h3>
+                        <div class="mb-4">
+                            <input type="text" placeholder="您的昵称" class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                        </div>
+                        <div class="mb-4">
+                            <input type="email" placeholder="您的邮箱" class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                        </div>
+                        <div class="mb-6">
+                            <input type="password" placeholder="设置密码" class="w-full px-4 py-3 rounded-lg border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary">
+                        </div>
+                        <button type="submit" class="w-full bg-primary hover:bg-primary/90 text-white py-3 rounded-lg transition-colors font-medium">
+                            免费注册
+                        </button>
+                        <p class="text-center text-neutral-500 text-sm mt-4">
+                            已有账号？<a href="#" class="text-primary hover:underline">立即登录</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+   
+    <footer class="bg-neutral-800 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <span class="text-primary text-3xl"><i class="fa fa-paint-brush"></i></span>
+                        <span class="text-xl font-bold">交流平台</span>
+                    </div>
+                    <p class="text-neutral-400 mb-6">发现灵感，分享创意，连接全球创作者的艺术设计交流平台。</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-neutral-700 hover:bg-primary flex items-center justify-center transition-colors">
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-neutral-700 hover:bg-primary flex items-center justify-center transition-colors">
+                            <i class="fa fa-wechat"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-neutral-700 hover:bg-primary flex items-center justify-center transition-colors">
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-neutral-700 hover:bg-primary flex items-center justify-center transition-colors">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-6">快速链接</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-neutral-400 hover:text-primary transition-colors">首页</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-primary transition-colors">作品展示</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-primary transition-colors">创作者社区</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-primary transition-colors">社区活动</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-primary transition-colors">帮助中心</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-6">资源中心</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-neutral-400 hover:text-primary transition-colors">教程与指南</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-primary transition-colors">设计素材</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-primary transition-colors">创作工具</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-primary transition-colors">行业资讯</a></li>
+                        <li><a href="#" class="text-neutral-400 hover:text-primary transition-colors">灵感图库</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-6">联系我们</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fa fa-map-marker text-primary mt-1 mr-3"></i>
+                            <span class="text-neutral-400">河南大学创意园区A座501</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-phone text-primary mr-3"></i>
+                            <span class="text-neutral-400">0371-12345678</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fa fa-envelope text-primary mr-3"></i>
+                            <span class="text-neutral-400">contact@heda-creative.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-neutral-700 pt-8 text-center text-neutral-500 text-sm">
+                <p>© 2025 河大创意平台. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousel = document.getElementById('carousel');
+            const items = document.querySelectorAll('.carousel-item');
+            const prevBtn = document.getElementById('prev-slide');
+            const nextBtn = document.getElementById('next-slide');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            
+            let currentIndex = 0;
+            const totalItems = items.length;
+            let autoplayInterval;
+            
+           
+            function showItem(index) {
+                items.forEach(item => item.style.opacity = '0');
+                indicators.forEach((indicator, i) => {
+                    indicator.style.opacity = i === index ? '1' : '0.5';
+                });
+                items[index].style.opacity = '1';
+                currentIndex = index;
+            }
+            
+         
+            function nextItem() {
+                const nextIndex = (currentIndex + 1) % totalItems;
+                showItem(nextIndex);
+            }
+            
+        
+            function prevItem() {
+                const prevIndex = (currentIndex - 1 + totalItems) % totalItems;
+                showItem(prevIndex);
+            }
+            
+          
+            function startAutoplay() {
+                autoplayInterval = setInterval(nextItem, 1500);
+            }
+            
+      
+            function stopAutoplay() {
+                clearInterval(autoplayInterval);
+            }
+            
+        
+            nextBtn.addEventListener('click', () => {
+                nextItem();
+                startAutoplay();
+            });
+            
+            prevBtn.addEventListener('click', () => {
+                prevItem();
+                startAutoplay();
+            });
+            
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    showItem(index);
+                    startAutoplay();
+                });
+            });
+            
+         
+            carousel.addEventListener('mouseenter', stopAutoplay);
+            carousel.addEventListener('mouseleave', startAutoplay);
+            
+       
+            startAutoplay();
+        });
+        
+      
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.getElementById('main-header');
+            
+            function handleScroll() {
+                if (window.scrollY > 50) {
+                    header.classList.add('header-scrolled');
+                } else {
+                    header.classList.remove('header-scrolled');
+                }
+            }
+            
+            window.addEventListener('scroll', () => {
+                requestAnimationFrame(handleScroll);
+            });
+            
+           
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
